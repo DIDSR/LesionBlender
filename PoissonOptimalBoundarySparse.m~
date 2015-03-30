@@ -171,43 +171,43 @@ disp(['Optimal Boundary Found in ' num2str(j-1) ' Iterations; Elapsed Time: ' nu
 % Use below to make a video of the optimal boundary through the consecutive
 % iterations
 %---------------------------------------------------
-% h66=figure(66); set(h66, 'Position', [100, 100, 500, 500]);set(h66, 'Color', [1 1 1]); 
-% set(h66, 'Color', [1 1 1]);
-% imDiffNorm = imDiff - min(imDiff(:));
-% imDiffNorm = imDiffNorm / (max(imDiff(:)) - min(imDiff(:)));
-% [pathX pathY] = ind2sub([r c],cutNodes);
-% [pathcwX pathcwY] = ind2sub([r c],nodes_cw);
-% [pathcountercwX pathcountercwY] = ind2sub([r c],nodes_countercw);
-% img_temp(:,:,1) = imDiffNorm; img_temp(:,:,2) = imDiffNorm; img_temp(:,:,3) = imDiffNorm; 
-% for j=1:length(pathX) %the cut
-%         img_temp(pathX(j), pathY(j),1) = 1;
-%         img_temp(pathX(j), pathY(j),2) = 0;
-%         img_temp(pathX(j), pathY(j),3) = 0;
-% end
-% for j=1:length(pathcwX) %the one below cut
-%         img_temp(pathcwX(j), pathcwY(j),1) = 0;
-%         img_temp(pathcwX(j), pathcwY(j),2) = 0;
-%         img_temp(pathcwX(j), pathcwY(j),3) = 1;
-% end
-% imshow(img_temp,[],'InitialMagnification', 'fit'); hold on;
-% contor=1;
-% mov(contor) = getframe(h66);
-% for i = 1:length(minPath)           
-%         pause(1);
-%         [pathOptX pathOptY] = ind2sub([r c],minPath{i});
-% 
-%         img_temp(:,:,1) = imDiffNorm; img_temp(:,:,2) = imDiffNorm; img_temp(:,:,3) = imDiffNorm;        
-%         for j=1:length(pathOptX)
-%                 img_temp(pathOptX(j), pathOptY(j),1) = 1;
-%                 img_temp(pathOptX(j), pathOptY(j),2) = 1;
-%                 img_temp(pathOptX(j), pathOptY(j),3) = 0;
-%         end
-%         imshow(img_temp,[],'InitialMagnification', 'fit');
-%         title(['Optimal Boundary Iteration = ', num2str(i)],'FontSize',15);    
-%         contor = contor+1;
-%         mov(contor) = getframe(h66);        
-% end
-% hold off;
+h66=figure(66); set(h66, 'Position', [100, 100, 500, 500]);set(h66, 'Color', [1 1 1]); 
+set(h66, 'Color', [1 1 1]);
+imDiffNorm = imDiff - min(imDiff(:));
+imDiffNorm = imDiffNorm / (max(imDiff(:)) - min(imDiff(:)));
+[pathX pathY] = ind2sub([r c],cutNodes);
+[pathcwX pathcwY] = ind2sub([r c],nodes_cw);
+[pathcountercwX pathcountercwY] = ind2sub([r c],nodes_countercw);
+img_temp(:,:,1) = imDiffNorm; img_temp(:,:,2) = imDiffNorm; img_temp(:,:,3) = imDiffNorm; 
+for j=1:length(pathX) %the cut
+        img_temp(pathX(j), pathY(j),1) = 1;
+        img_temp(pathX(j), pathY(j),2) = 0;
+        img_temp(pathX(j), pathY(j),3) = 0;
+end
+for j=1:length(pathcwX) %the one below cut
+        img_temp(pathcwX(j), pathcwY(j),1) = 0;
+        img_temp(pathcwX(j), pathcwY(j),2) = 0;
+        img_temp(pathcwX(j), pathcwY(j),3) = 1;
+end
+imshow(img_temp,[],'InitialMagnification', 'fit'); hold on;
+contor=1;
+mov(contor) = getframe(h66);
+for i = 1:length(minPath)           
+        pause(1);
+        [pathOptX pathOptY] = ind2sub([r c],minPath{i});
+
+        img_temp(:,:,1) = imDiffNorm; img_temp(:,:,2) = imDiffNorm; img_temp(:,:,3) = imDiffNorm;        
+        for j=1:length(pathOptX)
+                img_temp(pathOptX(j), pathOptY(j),1) = 1;
+                img_temp(pathOptX(j), pathOptY(j),2) = 1;
+                img_temp(pathOptX(j), pathOptY(j),3) = 0;
+        end
+        imshow(img_temp,[],'InitialMagnification', 'fit');
+        title(['Optimal Boundary Iteration = ', num2str(i)],'FontSize',15);    
+        contor = contor+1;
+        mov(contor) = getframe(h66);        
+end
+hold off;
 % movie2avi(mov,'/raida/apezeshk/test/temp.avi','compression','None', 'fps',1);
 %---------------------------------------------------
 

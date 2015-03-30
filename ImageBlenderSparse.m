@@ -16,6 +16,7 @@ function [imBlend blendOutputs] = ImageBlenderSparse(sliceTargetAll, sliceSource
 %    imBlend: the result of blending algorithm. in order to adhere to the
 %         format in the GUI that is used for window/level sliders to work correctly,
 %         image is type cast to int16  
+% Written By : Aria Pezeshk; 2014
 normalizeFlag = 0; %flag to determine whether to normalize each of source and target to be between [0,1] before further processing
 borderGradientFlag = 1;
 

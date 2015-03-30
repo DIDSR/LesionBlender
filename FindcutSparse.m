@@ -25,6 +25,7 @@ function  [cutNodes, nodes_cw, nodes_countercw]= FindcutSparse(bwMask)
 %   bwMask = zeros(25);
 %   bwMask(2:5, 5:18) = 1;
 %   nodes  = findcut(bwMask)
+% Written By: Aria Pezeshk; 2014
 
 % Later, initial position could be looped around
 % the boundary and the cut with shortest overall distance would be picked

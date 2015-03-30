@@ -1,5 +1,5 @@
 function dst = PoissonSparseSolver(src, Fh, Fv, msk)
-% Function to perform poisson image editing using matlab's sparse solver.
+% Function to perform poisson image editing using a sparse solver.
 % Inputs:
 %       src:target image, where area destined for blending has been
 %            replaced by region of interest from source (i.e. cut &
@@ -10,8 +10,7 @@ function dst = PoissonSparseSolver(src, Fh, Fv, msk)
 %       Fv: vertical gradient field of target image, where gradient field for area destined for blending has been
 %            replaced by vertical gradient field of region of interest
 %            from source
-%       msk: binary image, same size as src, where area to perform poisson
-%               editing is set to 1, and rest of image is 0.
+%       msk: binary image, same size as src, where area to per
 % Outputs:
 %       dst: 2D image obtained by applying poisson image editing
 % Written by: Aria Pezeshk; 2014

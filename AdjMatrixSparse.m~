@@ -12,9 +12,7 @@ function adj = AdjMatrixSparse(matSize, connectType)
 % Outputs
 %       adj: sparse adjacency matrix with size size
 %              prod(matSize)*prod(matSize), where element at i,j position
-%              shows whether pixel i is adjacent to pixel j in the original
-%              matrix (image);
-% Written by: Aria Pezeshk; 2014
+%              shows whether pixel i is ad
 r = matSize(2); %reason for switching described below
 c = matSize(1);
 % original logic used to  generate the adjacency matrix assumes row-wise node
