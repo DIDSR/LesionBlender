@@ -1,6 +1,14 @@
 % Demo file to show operation of lesion/image insertion using poisson image
 % editing; See LesionBlenderDemoVideo.avi for how to use this script. Input
-% images are expected to be grayscale. 
+% images are expected to be grayscale. When the GUI pops up, user first selects the general
+% region of interest from source image by selecting "Crop ROI". A rough
+% segmentation of the object to be inserted is then drawn by selecting
+% "Rough Segmentation" (segmentation should fall within the previously
+% selected ROI). Center of the insertion area into the target image is then
+% selected using "Select Target". Once these steps are done, user selects
+% "Blend". Another figure then pops up, showing original source and target
+% images, as well as result of copy/paste into target, and finally the
+% result of poisson image editing.
 % Written by: Aria Pezeshk; March 2015
 sourceFilename = 'cameraman.tif';
 targetFilename = 'cameraman.tif';
