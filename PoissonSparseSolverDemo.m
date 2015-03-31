@@ -79,9 +79,42 @@ pasteAlgoParams.resizeFactor = 1;
 pasteAlgoParams.maskOption = maskOption;
 pasteAlgoParams.gradCompOption = 'FullSize';
 [imBlend blendOutputs]= ImageBlenderSparse(target, source, pasteAlgoParams, pointPos); %
- 
+
+%------------------------------------------------
+% Display the outputs
+%------------------------------------------------
 figure; set(gcf, 'Position', get(0,'Screensize')); %force maximize figure
 subplot(2,2,1); imshow(sourceNorm,[],  'InitialMagnification', 'fit'); title('Source');
 subplot(2,2,2); imshow(targetNorm,[],  'InitialMagnification', 'fit'); title('Target');
-subplot(2,2,3); imshow(copyPasteImage,[], 'InitialMagnification', 'fit'); title('Copy and Paste');
+subplot(2,2,3); imshow(copyPasteImage,[], 'InitialMagnification', 'fit'); title('Copy and Paste Result');
 subplot(2,2,4); imshow(imBlend, [], 'InitialMagnification', 'fit') ;title('Blending Results Using Sparse Solver');
+
+%now display a second figure, with original and optimal boundaries
+%superimposed onto the blended image
+boundaryPix = blendOutputs.boundaryPixAll{1}; %extract optimal boundary points
+bboxOptimalColor = [1 1 0]; %color for optimal boundary
+bboxColor = [1 0 0]; %color for original boundary
+imBlendColored = zeros([size(imBlend), 3]);
+imBlendColored(:, :, 1) = double(imBlend); %initialize all channels to same thing, then add color over the two bbox areas
+imBlendColored(:, :, 2) = imBlendColored(:, :, 1);
+imBlendColored(:, :, 3) = imBlendColored(:, :, 1);
+minvalue = min(target(:)); maxvalue = max(target(:));
+imBlendColored = imBlendColored - minvalue;
+imBlendColored = imBlendColored / (maxvalue - minvalue);
+centerX = round(pointPos(2)); %matlab image and matrix coordinates are switched
+centerY = round(pointPos(1));
+
+tgtTop = centerX - floor(rectPos(4)/2); % coordinates of the perimeter of bounding box of where img will be pasted, according to matrix coordinates (rather than matlab image coordinates)
+tgtBottom = tgtTop + rectPos(4) - 1;
+tgtLeft = centerY - floor(rectPos(3)/2);
+tgtRight = tgtLeft + rectPos(3) - 1;
+for i = 1:size(boundaryPix,1)
+        imBlendColored(boundaryPix(i,1), boundaryPix(i,2), :) = bboxOptimalColor;
+end
+imBlendColored(tgtTop, tgtLeft:tgtRight, :) = repmat(bboxColor,[length(tgtLeft:tgtRight) 1]); %set the sides of the bbox to desired color
+imBlendColored(tgtBottom, tgtLeft:tgtRight, :) = repmat(bboxColor,[length(tgtLeft:tgtRight) 1]);
+imBlendColored(tgtTop:tgtBottom, tgtLeft, :) = repmat(bboxColor,[length(tgtTop:tgtBottom) 1]);
+imBlendColored(tgtTop:tgtBottom, tgtRight, :) = repmat(bboxColor,[length(tgtTop:tgtBottom) 1]);
+figure; 
+subplot(1,2,1); imshow(imBlendColored); title('Blended image: original & optimal boundaries in red & yellow');
+subplot(1,2,2); imshow(imBlend,[]); title('Blended image');
